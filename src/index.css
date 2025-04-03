@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  --color-gradient-dark: linear-gradient(180deg, #232630 0%, #050507 100%);
+}
+
+body {
+  height: 100dvh;
+  background: var(--color-gradient-dark);
+}

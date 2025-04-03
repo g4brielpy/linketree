@@ -1,7 +1,7 @@
 export function Home() {
   return (
-    <>
-      <h1>Página Home</h1>
-    </>
+    <div className="bg">
+      <h1>LinkeTree Gabriel</h1>
+    </div>
   );
 }
