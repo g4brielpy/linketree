@@ -6,7 +6,7 @@ interface CustomInputProps
 export function CustomInput({ className = "", ...props }: CustomInputProps) {
   return (
     <input
-      type="email"
+      type="text"
       className={`
         w-full h-10 px-5 rounded-md
         bg-gray-800 text-white 
@@ -15,7 +15,6 @@ export function CustomInput({ className = "", ...props }: CustomInputProps) {
         focus:border-amber-500 focus:outline-none
         ${className}
       `}
-      placeholder="use@email.com"
       {...props}
     />
   );
