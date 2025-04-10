@@ -1,9 +1,15 @@
-import LogoDevLink from "../../assets/Logo.svg";
+import { useState } from "react";
 
+import LogoDevLink from "../../assets/Logo.svg";
 import { CustomInput } from "../../components/CustomInput";
 import { CustomButton } from "../../components/CustomButton";
 
+import { login } from "../../utils/signIn";
+
 export function Login() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   return (
     <main className="container h-dvh mx-auto p-4">
       <div className="h-full max-w-2xl mx-auto flex flex-col justify-center items-center">
@@ -13,7 +19,13 @@ export function Login() {
           className="w-[280px] md:w-[400px] h-auto"
         />
 
-        <form action="#" className="mt-10 flex flex-col gap-4 w-full">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            login(email, password);
+          }}
+          className="mt-10 flex flex-col gap-4 w-full"
+        >
           <label htmlFor="email-user" className="hidden">
             Email
           </label>
@@ -22,6 +34,8 @@ export function Login() {
             type="email"
             placeholder="use@email.com"
             required
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
 
           <label htmlFor="password-user" className="hidden">
@@ -32,9 +46,11 @@ export function Login() {
             type="password"
             placeholder="********"
             required
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
 
-          <CustomButton>Acessar</CustomButton>
+          <CustomButton type="submit">Acessar</CustomButton>
         </form>
       </div>
     </main>
