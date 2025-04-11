@@ -4,6 +4,7 @@ import { auth } from "../../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { Loading } from "./Loading";
+import { Erro } from "./Erro";
 
 interface PrivateProps {
   children: React.ReactNode;
@@ -17,6 +18,8 @@ export function Private({ children }: PrivateProps) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
       }
 
       setLoading(false);
@@ -26,7 +29,7 @@ export function Private({ children }: PrivateProps) {
   }, []);
 
   if (loading) return <Loading />;
-  if (!isAuthenticated) return <p>Erro ao carregar página</p>;
+  if (!isAuthenticated) return <Erro />;
 
   return <>{children}</>;
 }
