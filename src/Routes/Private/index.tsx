@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
+import { Loading } from "./Loading";
+
 interface PrivateProps {
   children: React.ReactNode;
 }
@@ -23,7 +25,7 @@ export function Private({ children }: PrivateProps) {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading) return <Loading />;
   if (!isAuthenticated) return <p>Erro ao carregar página</p>;
 
   return <>{children}</>;
