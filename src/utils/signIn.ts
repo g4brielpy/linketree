@@ -7,8 +7,7 @@ export function login(email: string, password: string): Promise<boolean> {
   }
 
   return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential);
+    .then(() => {
       return true;
     })
     .catch((e) => {
