@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import LogoDevLink from "../../assets/Logo.svg";
 import { CustomInput } from "../../components/CustomInput";
@@ -9,11 +10,20 @@ import { login } from "../../utils/signIn";
 export function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(email, password);
-    // Adicionar função para fazer login
+
+    const isLogin = await login(email, password);
+    if (isLogin) {
+      navigate("/admin");
+    } else {
+      alert("usuário inválido, tente novamente!");
+    }
+
+    setEmail("");
+    setPassword("");
   };
 
   return (
