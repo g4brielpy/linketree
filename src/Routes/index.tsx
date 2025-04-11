@@ -5,6 +5,7 @@ import { Home } from "../pages/Home";
 import { Admin } from "../pages/Admin";
 import { Login } from "../pages/Login";
 import { Networks } from "../pages/Networks";
+import { Private } from "./Private";
 
 export const router = createBrowserRouter([
   {
@@ -17,10 +18,18 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <Private>
+        <Admin />
+      </Private>
+    ),
   },
   {
     path: "/admin/networks",
-    element: <Networks />,
+    element: (
+      <Private>
+        <Networks />
+      </Private>
+    ),
   },
 ]);
