@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import LogoDevLink from "../../assets/Logo.svg";
 import { CustomInput } from "../../components/CustomInput";
@@ -29,11 +30,13 @@ export function Login() {
   return (
     <main className="container h-dvh mx-auto p-4">
       <div className="h-full max-w-2xl mx-auto flex flex-col justify-center items-center">
-        <img
-          src={LogoDevLink}
-          alt="Dev Link"
-          className="w-[280px] md:w-[400px] h-auto"
-        />
+        <Link to={"/"}>
+          <img
+            src={LogoDevLink}
+            alt="Dev Link"
+            className="w-[280px] md:w-[400px] h-auto"
+          />
+        </Link>
 
         <form
           onSubmit={handleSubmitLogin}
