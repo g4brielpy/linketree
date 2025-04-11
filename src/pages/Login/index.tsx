@@ -10,6 +10,12 @@ export function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    login(email, password);
+    // Adicionar função para fazer login
+  };
+
   return (
     <main className="container h-dvh mx-auto p-4">
       <div className="h-full max-w-2xl mx-auto flex flex-col justify-center items-center">
@@ -20,10 +26,7 @@ export function Login() {
         />
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            login(email, password);
-          }}
+          onSubmit={handleSubmitLogin}
           className="mt-10 flex flex-col gap-4 w-full"
         >
           <label htmlFor="email-user" className="hidden">
