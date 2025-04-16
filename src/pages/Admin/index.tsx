@@ -1,6 +1,7 @@
 import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
 import { CustomInput } from "../../components/CustomInput";
+import { BoxColor } from "../../components/BoxColor";
 
 export function Admin() {
   return (
@@ -27,9 +28,36 @@ export function Admin() {
             <CustomInput
               type="url"
               id="link-url"
-              placeholder="https://meu-link.com/"
+              placeholder="https://www.meu-link.com/"
               required
             />
+          </div>
+
+          <div
+            id="conteiner-colors"
+            className="w-full mt-10 flex flex-col gap-4 sm:flex-row sm:justify-around sm:gap-5"
+          >
+            <BoxColor>
+              <label htmlFor="" className="text-white font-bold text-xl">
+                Cor de Fundo
+              </label>
+              <CustomInput
+                type="color"
+                defaultValue="#FFFFFF"
+                className="w-[100px] pl-0.5 pr-0.5 cursor-pointer"
+              />
+            </BoxColor>
+
+            <BoxColor>
+              <label htmlFor="" className="text-white font-bold text-xl">
+                Cor de Texto
+              </label>
+              <CustomInput
+                type="color"
+                defaultValue="#000000"
+                className="w-[100px] pl-0.5 pr-0.5 cursor-pointer"
+              />
+            </BoxColor>
           </div>
 
           <CustomButton className="mt-8">Cadastrar</CustomButton>
