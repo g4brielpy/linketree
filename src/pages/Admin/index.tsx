@@ -2,6 +2,7 @@ import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
 import { CustomInput } from "../../components/CustomInput";
 import { BoxColor } from "../../components/BoxColor";
+import { Title1 } from "../../components/Title1";
 
 export function Admin() {
   return (
@@ -62,6 +63,11 @@ export function Admin() {
 
           <CustomButton className="mt-8">Cadastrar</CustomButton>
         </form>
+
+        <section className="mt-20 text-center">
+          <Title1>Meus Links</Title1>
+          {/* Adicionar links */}
+        </section>
       </main>
     </div>
   );
