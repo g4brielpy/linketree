@@ -1,15 +1,36 @@
+import { useState } from "react";
+
 import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
 import { CustomInput } from "../../components/CustomInput";
 import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
+interface formLinkProps {
+  name: string;
+  url: string;
+  background: string;
+  color: string;
+}
+
 export function Admin() {
+  const [formLink, setFormLink] = useState<formLinkProps>({
+    name: "",
+    url: "",
+    background: "#FFFFFF",
+    color: "#000000",
+  });
+
   return (
     <div className="container mx-auto p-4 mt-2">
       <HeaderPrivite />
       <main className="max-w-2xl mx-auto my-20 flex flex-col justify-center">
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log(formLink);
+          }}
+        >
           <div className="flex flex-col gap-4">
             <label htmlFor="link-name" className="text-white font-bold text-xl">
               Nome do Link
@@ -19,6 +40,10 @@ export function Admin() {
               id="link-name"
               placeholder="Meu Link"
               required
+              value={formLink.name}
+              onChange={(e) =>
+                setFormLink({ ...formLink, name: e.target.value })
+              }
             />
           </div>
 
@@ -31,6 +56,10 @@ export function Admin() {
               id="link-url"
               placeholder="https://www.meu-link.com/"
               required
+              value={formLink.url}
+              onChange={(e) =>
+                setFormLink({ ...formLink, url: e.target.value })
+              }
             />
           </div>
 
@@ -39,24 +68,30 @@ export function Admin() {
             className="w-full mt-10 flex flex-col gap-4 sm:flex-row sm:justify-around sm:gap-5"
           >
             <BoxColor>
-              <label htmlFor="" className="text-white font-bold text-xl">
+              <label className="text-white font-bold text-xl">
                 Cor de Fundo
               </label>
               <CustomInput
                 type="color"
-                defaultValue="#FFFFFF"
                 className="w-[100px] pl-0.5 pr-0.5 cursor-pointer"
+                value={formLink.background}
+                onChange={(e) =>
+                  setFormLink({ ...formLink, background: e.target.value })
+                }
               />
             </BoxColor>
 
             <BoxColor>
-              <label htmlFor="" className="text-white font-bold text-xl">
+              <label className="text-white font-bold text-xl">
                 Cor de Texto
               </label>
               <CustomInput
                 type="color"
-                defaultValue="#000000"
                 className="w-[100px] pl-0.5 pr-0.5 cursor-pointer"
+                value={formLink.color}
+                onChange={(e) =>
+                  setFormLink({ ...formLink, color: e.target.value })
+                }
               />
             </BoxColor>
           </div>
