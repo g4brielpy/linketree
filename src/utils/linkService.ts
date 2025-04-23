@@ -17,6 +17,6 @@ export async function createLink(data: linkProps): Promise<boolean> {
     return true;
   } catch (e) {
     console.log(`Erro ao cadastrar link: ${e}`);
-    return false;
+    throw new Error("Erro ao cadastrar link! Tente novamente.");
   }
 }

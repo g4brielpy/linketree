@@ -8,6 +8,8 @@ import { Title1 } from "../../components/Title1";
 
 import { createLink } from "../../utils/linkService";
 
+import { toast } from "react-hot-toast";
+
 interface formLinkProps {
   name: string;
   url: string;
@@ -27,12 +29,24 @@ export function Admin() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const formWithTime = {
-      ...formLink,
-      time: new Date(),
-    };
+    try {
+      const formWithTime = {
+        ...formLink,
+        time: new Date(),
+      };
 
-    const success: Promise<boolean> = createLink(formWithTime);
+      await createLink(formWithTime);
+      toast.success("Link cadastrado com sucesso!");
+    } catch (e: any) {
+      toast.error(e?.message || "Erro inesperado ao cadastrar link.");
+    } finally {
+      setFormLink({
+        name: "",
+        url: "",
+        background: "#FFFFFF",
+        color: "#000000",
+      });
+    }
   };
 
   return (
