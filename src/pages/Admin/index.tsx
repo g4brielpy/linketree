@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
@@ -6,11 +6,14 @@ import { CustomInput } from "../../components/CustomInput";
 import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
+import { createLink } from "../../utils/linkService";
+
 interface formLinkProps {
   name: string;
   url: string;
   background: string;
   color: string;
+  time?: Date;
 }
 
 export function Admin() {
@@ -21,16 +24,22 @@ export function Admin() {
     color: "#000000",
   });
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const formWithTime = {
+      ...formLink,
+      time: new Date(),
+    };
+
+    const success: Promise<boolean> = createLink(formWithTime);
+  };
+
   return (
     <div className="container mx-auto p-4 mt-2">
       <HeaderPrivite />
       <main className="max-w-2xl mx-auto my-20 flex flex-col justify-center">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log(formLink);
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
             <label htmlFor="link-name" className="text-white font-bold text-xl">
               Nome do Link
