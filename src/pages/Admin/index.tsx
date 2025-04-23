@@ -25,9 +25,12 @@ export function Admin() {
     background: "#FFFFFF",
     color: "#000000",
   });
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoadingSubmit(true);
+    console.log("Teste");
 
     try {
       const formWithTime = {
@@ -40,6 +43,7 @@ export function Admin() {
     } catch (e: any) {
       toast.error(e?.message || "Erro inesperado ao cadastrar link.");
     } finally {
+      setLoadingSubmit(false);
       setFormLink({
         name: "",
         url: "",
@@ -119,7 +123,12 @@ export function Admin() {
             </BoxColor>
           </div>
 
-          <CustomButton className="mt-8">Cadastrar</CustomButton>
+          <CustomButton
+            className={`mt-8 ${loadingSubmit && "opacity-50"}`}
+            disabled={loadingSubmit ? true : false}
+          >
+            Cadastrar
+          </CustomButton>
         </form>
 
         <section className="mt-20 text-center">
