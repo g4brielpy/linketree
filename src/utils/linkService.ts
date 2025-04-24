@@ -1,5 +1,12 @@
 import { db } from "../services/firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  QuerySnapshot,
+  DocumentData,
+  CollectionReference,
+} from "firebase/firestore";
 
 interface linkProps {
   name: string;
@@ -10,10 +17,11 @@ interface linkProps {
 }
 
 const path: string = "links";
+const collectionRef: CollectionReference<DocumentData> = collection(db, path);
 
 export async function createLink(data: linkProps): Promise<boolean> {
   try {
-    await addDoc(collection(db, path), data);
+    await addDoc(collectionRef, data);
     return true;
   } catch (e) {
     console.log(`Erro ao cadastrar link: ${e}`);
@@ -21,9 +29,14 @@ export async function createLink(data: linkProps): Promise<boolean> {
   }
 }
 
-export async function getLinks() {
+export async function getLinks(): Promise<DocumentData[]> {
   try {
-    const snapshot = await getDocs(collection(db, path));
-    console.log(snapshot);
-  } catch (e) {}
+    const snapshot: QuerySnapshot<DocumentData> = await getDocs(collectionRef);
+    const docsResult: DocumentData[] = snapshot.docs.map((doc) => doc.data());
+
+    return docsResult;
+  } catch (e) {
+    console.log(`Erro ao buscar links: ${e}`);
+    throw new Error("Erro ao buscar links! Tente novamente.");
+  }
 }
