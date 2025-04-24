@@ -1,5 +1,5 @@
 import { db } from "../services/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 interface linkProps {
   name: string;
@@ -19,4 +19,11 @@ export async function createLink(data: linkProps): Promise<boolean> {
     console.log(`Erro ao cadastrar link: ${e}`);
     throw new Error("Erro ao cadastrar link! Tente novamente.");
   }
+}
+
+export async function getLinks() {
+  try {
+    const snapshot = await getDocs(collection(db, path));
+    console.log(snapshot);
+  } catch (e) {}
 }

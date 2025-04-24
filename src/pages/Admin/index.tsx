@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 
 import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
@@ -6,7 +6,7 @@ import { CustomInput } from "../../components/CustomInput";
 import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
-import { createLink } from "../../utils/linkService";
+import { createLink, getLinks } from "../../utils/linkService";
 
 import { toast } from "react-hot-toast";
 
@@ -52,6 +52,10 @@ export function Admin() {
       });
     }
   };
+
+  useEffect(() => {
+    getLinks();
+  }, []);
 
   return (
     <div className="container mx-auto p-4 mt-2">
