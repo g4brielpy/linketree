@@ -29,10 +29,18 @@ export async function createLink(data: linkProps): Promise<boolean> {
   }
 }
 
-export async function getLinks(): Promise<DocumentData[]> {
+export async function getLinks(): Promise<linkProps[]> {
   try {
     const snapshot: QuerySnapshot<DocumentData> = await getDocs(collectionRef);
-    const docsResult: DocumentData[] = snapshot.docs.map((doc) => doc.data());
+    const docsResult: linkProps[] = snapshot.docs.map((doc) => {
+      return {
+        name: doc.data().name,
+        url: doc.data().url,
+        background: doc.data().background,
+        color: doc.data().color,
+        time: doc.data().time,
+      };
+    });
 
     return docsResult;
   } catch (e) {
