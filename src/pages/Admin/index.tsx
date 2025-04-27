@@ -7,6 +7,7 @@ import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
 import { createLink, getLinks } from "../../utils/linkService";
+import { useFetchLinks } from "../../hooks/useFetchLinks";
 
 import { toast } from "react-hot-toast";
 
@@ -30,7 +31,6 @@ export function Admin() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoadingSubmit(true);
-    console.log("Teste");
 
     try {
       const formWithTime = {
@@ -53,9 +53,7 @@ export function Admin() {
     }
   };
 
-  useEffect(() => {
-    getLinks();
-  }, []);
+  useFetchLinks();
 
   return (
     <div className="container mx-auto p-4 mt-2">
