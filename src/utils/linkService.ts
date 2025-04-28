@@ -8,7 +8,7 @@ import {
   CollectionReference,
 } from "firebase/firestore";
 
-interface linkProps {
+export interface linkProps {
   name: string;
   url: string;
   background: string;
