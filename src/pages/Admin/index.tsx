@@ -1,4 +1,4 @@
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState } from "react";
 
 import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
@@ -6,7 +6,7 @@ import { CustomInput } from "../../components/CustomInput";
 import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
-import { createLink, getLinks } from "../../utils/linkService";
+import { createLink, linkProps } from "../../utils/linkService";
 import { useFetchLinks } from "../../hooks/useFetchLinks";
 
 import { toast } from "react-hot-toast";
@@ -27,6 +27,7 @@ export function Admin() {
     color: "#000000",
   });
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+  const [loadingLinks, setLoadingLinks] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -53,8 +54,9 @@ export function Admin() {
     }
   };
 
-  // arrumar useEffect
-  useFetchLinks();
+  const { links, isLoading } = useFetchLinks();
+  // Criar useStates para armazenar esses valores para atualizarem a página quando sofrerem mudanças
+  // Aproveitar e adicionar tratamento de erro
 
   return (
     <div className="container mx-auto p-4 mt-2">
@@ -135,8 +137,12 @@ export function Admin() {
         </form>
 
         <section className="mt-20 text-center">
-          <Title1>Meus Links</Title1>
-          {/* Adicionar links */}
+          {isLoading && <Title1>Carregando links</Title1>}
+          {links.length ? (
+            <Title1>Meus Links</Title1>
+          ) : (
+            <Title1>Sem links até o momento</Title1>
+          )}
         </section>
       </main>
     </div>
