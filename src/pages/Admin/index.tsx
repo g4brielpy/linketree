@@ -11,16 +11,8 @@ import { useFetchLinks } from "../../hooks/useFetchLinks";
 
 import { toast } from "react-hot-toast";
 
-interface formLinkProps {
-  name: string;
-  url: string;
-  background: string;
-  color: string;
-  time?: Date;
-}
-
 export function Admin() {
-  const [formLink, setFormLink] = useState<formLinkProps>({
+  const [formLink, setFormLink] = useState<linkProps>({
     name: "",
     url: "",
     background: "#FFFFFF",
