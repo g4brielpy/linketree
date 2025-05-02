@@ -18,5 +18,5 @@ export function useFetchLinks() {
     })();
   }, []);
 
-  return { links, isLoading };
+  return [links, isLoading];
 }
