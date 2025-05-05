@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getLinks, linkProps } from "../utils/linkService";
 
-export function useFetchLinks() {
+export function useFetchLinks(): [linkProps[], boolean] {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [links, setLinks] = useState<linkProps[]>([]);
 
