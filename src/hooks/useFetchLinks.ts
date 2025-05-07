@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
-import { getLinks, linkProps } from "../utils/linkService";
+import { linkProps } from "../utils/linkService";
+import { onSnapshot, collection } from "firebase/firestore";
+import { db } from "../services/firebase";
 
-export function useFetchLinks(): [linkProps[], boolean] {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export function useFetchLinks(): linkProps[] {
   const [links, setLinks] = useState<linkProps[]>([]);
+  const collectionRef = collection(db, "links");
 
   useEffect(() => {
-    (async () => {
-      try {
-        const linksResult: linkProps[] = await getLinks();
-        setLinks(linksResult);
-      } catch (e) {
-        throw new Error("Erro ao buscar links! Tente novamente.");
-      } finally {
-        setIsLoading(false);
-      }
-    })();
+    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+      const docsResult: linkProps[] = snapshot.docs.map((doc) => ({
+        name: doc.data().name,
+        url: doc.data().url,
+        background: doc.data().background,
+        color: doc.data().color,
+        time: doc.data().time,
+      }));
+
+      setLinks(docsResult);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  return [links, isLoading];
+  return links;
 }

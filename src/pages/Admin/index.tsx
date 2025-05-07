@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { HeaderPrivite } from "../../components/HeaderPrivite";
 import { CustomButton } from "../../components/CustomButton";
 import { CustomInput } from "../../components/CustomInput";
+import { CustomLink } from "../../components/CustomLink";
 import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
@@ -19,7 +20,9 @@ export function Admin() {
     color: "#000000",
   });
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
-  const [loadingLinks, setLoadingLinks] = useState<boolean>(false);
+  const [links, setLinks] = useState<linkProps[]>([]);
+
+  const linksResult = useFetchLinks();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -45,10 +48,6 @@ export function Admin() {
       });
     }
   };
-
-  const { links, isLoading } = useFetchLinks();
-  // Criar useStates para armazenar esses valores para atualizarem a página quando sofrerem mudanças
-  // Aproveitar e adicionar tratamento de erro
 
   return (
     <div className="container mx-auto p-4 mt-2">
@@ -129,9 +128,22 @@ export function Admin() {
         </form>
 
         <section className="mt-20 text-center">
-          {isLoading && <Title1>Carregando links</Title1>}
-          {links.length ? (
-            <Title1>Meus Links</Title1>
+          {linksResult.length ? (
+            <div className="flex flex-col gap-4">
+              {linksResult.map((link, i) => (
+                <CustomLink
+                  key={i}
+                  href={link.url}
+                  className="w-full"
+                  style={{
+                    backgroundColor: link.background,
+                    color: link.color,
+                  }}
+                >
+                  {link.name}
+                </CustomLink>
+              ))}
+            </div>
           ) : (
             <Title1>Sem links até o momento</Title1>
           )}
