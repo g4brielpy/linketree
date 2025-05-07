@@ -20,8 +20,9 @@ export function Admin() {
     color: "#000000",
   });
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
-  const [links, setLinks] = useState<linkProps[]>([]);
 
+  // UseEffect para buscar os links, utilizando observador em tempo real
+  // com o onSnapshot do Firebase
   const linksResult = useFetchLinks();
 
   const handleSubmit = async (e: FormEvent) => {
