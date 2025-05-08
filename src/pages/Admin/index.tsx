@@ -11,6 +11,7 @@ import { createLink, linkProps } from "../../utils/linkService";
 import { useFetchLinks } from "../../hooks/useFetchLinks";
 
 import { toast } from "react-hot-toast";
+import { FiTrash } from "react-icons/fi";
 
 export function Admin() {
   const [formLink, setFormLink] = useState<linkProps>({
@@ -135,13 +136,20 @@ export function Admin() {
                 <CustomLink
                   key={i}
                   href={link.url}
-                  className="w-full"
+                  className="w-full flex justify-between items-center px-6"
                   style={{
                     backgroundColor: link.background,
                     color: link.color,
                   }}
                 >
                   {link.name}
+
+                  <button
+                    className="cursor-pointer bg-black p-1 rounded-b-sm"
+                    title="Deletar"
+                  >
+                    <FiTrash size={24} color="#ffffff" />
+                  </button>
                 </CustomLink>
               ))}
             </div>
