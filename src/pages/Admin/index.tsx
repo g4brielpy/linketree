@@ -51,6 +51,15 @@ export function Admin() {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteLink(id);
+      toast.success("Link deletado com sucesso!");
+    } catch (e: any) {
+      toast.error(e?.message || "Erro inesperado ao deletar link.");
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 mt-2">
       <HeaderPrivite />
@@ -146,16 +155,7 @@ export function Admin() {
                   <button
                     className="cursor-pointer bg-black p-1 rounded-b-sm"
                     title="Deletar"
-                    onClick={async () => {
-                      try {
-                        await deleteLink(link.id!);
-                        toast.success("Link deletado com sucesso!");
-                      } catch (e: any) {
-                        toast.error(
-                          e?.message || "Erro inesperado ao deletar link."
-                        );
-                      }
-                    }}
+                    onClick={() => handleDelete(link.id!)}
                   >
                     <FiTrash size={24} color="#ffffff" />
                   </button>
