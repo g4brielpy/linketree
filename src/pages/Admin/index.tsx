@@ -65,7 +65,7 @@ export function Admin() {
       <HeaderPrivite />
       <main className="max-w-2xl mx-auto my-20 flex flex-col justify-center">
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mb-4">
             <label htmlFor="link-name" className="text-white font-bold text-xl">
               Nome do Link
             </label>
