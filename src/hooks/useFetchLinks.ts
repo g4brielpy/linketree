@@ -1,6 +1,6 @@
+import { onSnapshot, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { linkProps } from "../utils/linkService";
-import { onSnapshot, collection } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 export function useFetchLinks(): linkProps[] {
@@ -9,13 +9,19 @@ export function useFetchLinks(): linkProps[] {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-      const docsResult: linkProps[] = snapshot.docs.map((doc) => ({
-        name: doc.data().name,
-        url: doc.data().url,
-        background: doc.data().background,
-        color: doc.data().color,
-        time: doc.data().time,
-      }));
+      const docsResult: linkProps[] = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          name: data.name,
+          url: data.url,
+          background: data.background,
+          color: data.color,
+          time: data.time,
+        };
+      });
+
+      console.log(docsResult);
 
       setLinks(docsResult);
     });
