@@ -1,10 +1,13 @@
 import { db } from "../services/firebase";
 import {
-  collection,
+  doc,
   addDoc,
+  getDoc,
   getDocs,
-  QuerySnapshot,
+  deleteDoc,
+  collection,
   DocumentData,
+  QuerySnapshot,
   CollectionReference,
 } from "firebase/firestore";
 
@@ -48,5 +51,21 @@ export async function getLinks(): Promise<linkProps[]> {
   } catch (e) {
     console.log(`Erro ao buscar links: ${e}`);
     throw new Error("Erro ao buscar links! Tente novamente.");
+  }
+}
+
+export async function deleteLink(id: string) {
+  const docRef = doc(db, path, id);
+  try {
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      throw new Error("Link não encontrado. Verifique o ID.");
+    }
+
+    await deleteDoc(docRef);
+    return true;
+  } catch (e) {
+    console.log(`Erro ao deletar link: ${e}`);
+    throw new Error("Erro ao deletar link! Tente novamente.");
   }
 }
