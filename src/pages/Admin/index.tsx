@@ -7,11 +7,11 @@ import { CustomLink } from "../../components/CustomLink";
 import { BoxColor } from "../../components/BoxColor";
 import { Title1 } from "../../components/Title1";
 
-import { createLink, linkProps } from "../../utils/linkService";
+import { createLink, deleteLink, linkProps } from "../../utils/linkService";
 import { useFetchLinks } from "../../hooks/useFetchLinks";
 
-import { toast } from "react-hot-toast";
 import { FiTrash } from "react-icons/fi";
+import { toast } from "react-hot-toast";
 
 export function Admin() {
   const [formLink, setFormLink] = useState<linkProps>({
@@ -132,10 +132,9 @@ export function Admin() {
         <section className="mt-20 text-center">
           {linksResult.length ? (
             <div className="flex flex-col gap-4">
-              {linksResult.map((link, i) => (
+              {linksResult.map((link) => (
                 <CustomLink
-                  key={i}
-                  href={link.url}
+                  key={link.id}
                   className="w-full flex justify-between items-center px-6"
                   style={{
                     backgroundColor: link.background,
@@ -147,6 +146,16 @@ export function Admin() {
                   <button
                     className="cursor-pointer bg-black p-1 rounded-b-sm"
                     title="Deletar"
+                    onClick={async () => {
+                      try {
+                        await deleteLink(link.id!);
+                        toast.success("Link deletado com sucesso!");
+                      } catch (e: any) {
+                        toast.error(
+                          e?.message || "Erro inesperado ao deletar link."
+                        );
+                      }
+                    }}
                   >
                     <FiTrash size={24} color="#ffffff" />
                   </button>
