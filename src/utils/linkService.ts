@@ -13,6 +13,8 @@ export interface linkProps {
   url: string;
   background: string;
   color: string;
+
+  id?: string;
   time?: Date;
 }
 
