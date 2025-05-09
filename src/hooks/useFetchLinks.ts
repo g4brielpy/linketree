@@ -21,8 +21,6 @@ export function useFetchLinks(): linkProps[] {
         };
       });
 
-      console.log(docsResult);
-
       setLinks(docsResult);
     });
 
