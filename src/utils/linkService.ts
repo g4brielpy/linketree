@@ -22,6 +22,7 @@ export interface linkProps {
 }
 
 const path: string = "links";
+const pathSocial: string = "social";
 const collectionRef: CollectionReference<DocumentData> = collection(db, path);
 
 export async function createLink(data: linkProps): Promise<boolean> {
@@ -52,6 +53,23 @@ export async function getLinks(): Promise<linkProps[]> {
     console.log(`Erro ao buscar links: ${e}`);
     throw new Error("Erro ao buscar links! Tente novamente.");
   }
+}
+
+export async function getLinksSociais() {
+  const sociais: string[] = ["facebook", "instagram", "youtube"];
+
+  try {
+    const docResult = await Promise.all(
+      sociais.map(async (social) => {
+        const docRef = doc(db, pathSocial, social);
+        const docSnap = await getDoc(docRef);
+
+        return docSnap.data();
+      })
+    );
+
+    return docResult;
+  } catch (e) {}
 }
 
 export async function deleteLink(id: string) {
