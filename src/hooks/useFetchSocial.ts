@@ -16,7 +16,5 @@ export function useFetchSocial(): linkSocialProps {
     fetchSocialMedia();
   }, []);
 
-  console.log("socialMedia", socialMedia);
-
   return socialMedia;
 }
