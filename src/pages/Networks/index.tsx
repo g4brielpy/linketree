@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { linkSocialProps } from "../../utils/linkService";
 import { useFetchSocial } from "../../hooks/useFetchSocial";
 
@@ -8,17 +8,26 @@ import { CustomInput } from "../../components/CustomInput";
 import { Title1 } from "../../components/Title1";
 
 export function Networks() {
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
   const linksResult: linkSocialProps = useFetchSocial();
-
   const [socialMedia, setSocialMedia] = useState<linkSocialProps>({
     facebook: "",
     instagram: "",
     youtube: "",
   });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    Object.keys(socialMedia).forEach((key) => {
+      if (socialMedia[key as keyof linkSocialProps] != "") {
+        // função para atualizar os links sociais
+      }
+    });
+  };
+
+  useEffect(() => {
+    setSocialMedia(linksResult);
+  }, [linksResult]);
 
   return (
     <div className="container mx-auto p-4 mt-2">
@@ -37,7 +46,7 @@ export function Networks() {
             <CustomInput
               type="url"
               id="link-facebook"
-              placeholder="https://www.facebook/user.com"
+              placeholder="https://www.facebook/user/"
               value={socialMedia.facebook}
               onChange={(e) =>
                 setSocialMedia({ ...socialMedia, facebook: e.target.value })
@@ -55,7 +64,7 @@ export function Networks() {
             <CustomInput
               type="url"
               id="link-instagram"
-              placeholder="https://www.instagram/user.com"
+              placeholder="https://www.instagram/user/"
               value={socialMedia.instagram}
               onChange={(e) =>
                 setSocialMedia({ ...socialMedia, instagram: e.target.value })
@@ -73,7 +82,7 @@ export function Networks() {
             <CustomInput
               type="url"
               id="link-youtube"
-              placeholder="https://www.youtube/user.com"
+              placeholder="https://www.youtube/user/"
               value={socialMedia.youtube}
               onChange={(e) =>
                 setSocialMedia({ ...socialMedia, youtube: e.target.value })
