@@ -15,6 +15,7 @@ export function HeaderPrivite() {
         >
           <RiLogoutBoxLine size={30} className="text-red-800 " />
         </button>
+        <LinkHeader to="/">Home</LinkHeader>
         <LinkHeader to="/admin">Links</LinkHeader>
         <LinkHeader to={"/admin/networks"}>Redes Sociais</LinkHeader>
       </nav>
