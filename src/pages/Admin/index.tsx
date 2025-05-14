@@ -138,6 +138,29 @@ export function Admin() {
           </CustomButton>
         </form>
 
+        {formLink.name && (
+          <section
+            className="
+            rounded-md py-4 px-6 mt-10
+            text-white 
+            font-semibold border-2 border-amber-500/40
+            transition-all duration-300 ease-in-out
+            hover:border-amber-500 hover:focus:outline-none
+           "
+          >
+            <h2 className="mb-6">Veja como esta ficando</h2>
+            <CustomLink
+              className="w-full flex justify-between items-center px-6"
+              style={{
+                backgroundColor: formLink.background,
+                color: formLink.color,
+              }}
+            >
+              {formLink.name}
+            </CustomLink>
+          </section>
+        )}
+
         <section className="mt-20 text-center">
           {linksResult.length ? (
             <div className="flex flex-col gap-4">
