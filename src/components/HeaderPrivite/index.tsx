@@ -1,11 +1,16 @@
 import { LinkHeader } from "../LinkHeader";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
+import { logout } from "../../utils/signIn";
+
 export function HeaderPrivite() {
   return (
     <header className="px-4 py-3 bg-white rounded-sm">
       <nav className="flex items-center gap-8  font-semibold sm:text-lg md:text-xl">
         <button
+          onClick={async () => {
+            await logout();
+          }}
           className="
             cursor-pointer p-1 rounded-md
             text-red-800 hover:text-red-600

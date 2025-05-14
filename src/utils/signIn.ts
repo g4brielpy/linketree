@@ -1,5 +1,5 @@
 import { auth } from "../services/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export function login(email: string, password: string): Promise<boolean> {
   if (email.trim() === "" || password.trim() === "") {
@@ -14,4 +14,8 @@ export function login(email: string, password: string): Promise<boolean> {
       console.error("Erro ao fazer Login: " + e.code);
       return false;
     });
+}
+
+export async function logout(): Promise<void> {
+  await signOut(auth);
 }
