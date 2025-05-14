@@ -2,16 +2,60 @@ import { Title1 } from "../../components/Title1";
 import { CustomLink } from "../../components/CustomLink";
 import { FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
 
+import {
+  getLinks,
+  linkProps,
+  getLinksSociais,
+  linkSocialProps,
+} from "../../utils/linkService";
+
+import { useEffect, useState } from "react";
+
 export function Home() {
+  const [links, setLinks] = useState<linkProps[]>([]);
+  const [linksSociais, setLinksSociais] = useState<linkSocialProps>({
+    instagram: "",
+    facebook: "",
+    youtube: "",
+  });
+
+  useEffect(() => {
+    async function fetchLinks() {
+      const linksData = await getLinks();
+      const linksSociaisData = await getLinksSociais();
+
+      setLinks(linksData);
+      setLinksSociais(linksSociaisData);
+    }
+
+    fetchLinks();
+  }, []);
+
   return (
     <>
       <main className="container mx-auto p-4 mt-20 text-center">
         <Title1>LinkeTree Gabriel</Title1>
         <section className="max-w-2xl mx-auto">
-          <p className="text-white my-6">Veja meus links abaixo 👇🏽</p>
+          <p className="text-white my-12">Veja meus links abaixo 👇🏽</p>
           <nav className="flex flex-col gap-4">
-            <CustomLink>Meu canal do YouTube</CustomLink>
-            <CustomLink>Meu canal do WhatsApp</CustomLink>
+            {links.length === 0 && (
+              <p className="text-white text-2xl">
+                Nenhum link encontrado. Verifique o banco de dados.
+              </p>
+            )}
+
+            {links.map((link) => (
+              <CustomLink
+                key={link.id!}
+                style={{
+                  backgroundColor: link.background,
+                  color: link.color,
+                }}
+                href={link.url}
+              >
+                {link.name}
+              </CustomLink>
+            ))}
           </nav>
         </section>
       </main>
@@ -19,21 +63,21 @@ export function Home() {
       <footer className="mx-auto p-4 mt-20 text-center ">
         <nav className="flex justify-center gap-4">
           <a
-            href="https://www.instagram.com/gabrielguilhermecosta/"
+            href="https://www.instagram.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaInstagram size={32} color="#FFF" />
           </a>
           <a
-            href="https://www.facebook.com/gabrielguilhermecosta/"
+            href="https://www.facebook.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaFacebook size={32} color="#FFF" />
           </a>
           <a
-            href="https://www.youtube.com/@gabrielguilhermecosta"
+            href="https://www.youtube.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
