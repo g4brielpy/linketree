@@ -13,11 +13,17 @@ import { useEffect, useState } from "react";
 
 export function Home() {
   const [links, setLinks] = useState<linkProps[]>([]);
+
   const [linksSociais, setLinksSociais] = useState<linkSocialProps>({
     instagram: "",
     facebook: "",
     youtube: "",
   });
+  const socialIcons = {
+    instagram: <FaInstagram size={32} color="#FFF" />,
+    facebook: <FaFacebook size={32} color="#FFF" />,
+    youtube: <FaYoutube size={32} color="#FFF" />,
+  };
 
   useEffect(() => {
     async function fetchLinks() {
@@ -62,27 +68,19 @@ export function Home() {
 
       <footer className="mx-auto p-4 mt-20 text-center ">
         <nav className="flex justify-center gap-4">
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaInstagram size={32} color="#FFF" />
-          </a>
-          <a
-            href="https://www.facebook.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebook size={32} color="#FFF" />
-          </a>
-          <a
-            href="https://www.youtube.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaYoutube size={32} color="#FFF" />
-          </a>
+          {Object.entries(linksSociais).map(
+            ([rede, url]) =>
+              url.trim() != "" && (
+                <a
+                  key={rede}
+                  href={linksSociais[rede as keyof linkSocialProps]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {socialIcons[rede as keyof typeof socialIcons]}
+                </a>
+              )
+          )}
         </nav>
       </footer>
     </>
