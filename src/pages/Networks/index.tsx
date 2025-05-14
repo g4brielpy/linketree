@@ -1,5 +1,5 @@
+import { linkSocialProps, setLinkSocial } from "../../utils/linkService";
 import { useState, useEffect } from "react";
-import { linkSocialProps } from "../../utils/linkService";
 import { useFetchSocial } from "../../hooks/useFetchSocial";
 
 import { HeaderPrivite } from "../../components/HeaderPrivite";
@@ -20,7 +20,8 @@ export function Networks() {
 
     Object.keys(socialMedia).forEach((key) => {
       if (socialMedia[key as keyof linkSocialProps] != "") {
-        // função para atualizar os links sociais
+        const url: string = socialMedia[key as keyof linkSocialProps];
+        setLinkSocial(key, url);
       }
     });
   };
@@ -46,7 +47,7 @@ export function Networks() {
             <CustomInput
               type="url"
               id="link-facebook"
-              placeholder="https://www.facebook/user/"
+              placeholder="https://www.facebook.com/user/"
               value={socialMedia.facebook}
               onChange={(e) =>
                 setSocialMedia({ ...socialMedia, facebook: e.target.value })
@@ -64,7 +65,7 @@ export function Networks() {
             <CustomInput
               type="url"
               id="link-instagram"
-              placeholder="https://www.instagram/user/"
+              placeholder="https://www.instagram.com/user/"
               value={socialMedia.instagram}
               onChange={(e) =>
                 setSocialMedia({ ...socialMedia, instagram: e.target.value })
@@ -82,7 +83,7 @@ export function Networks() {
             <CustomInput
               type="url"
               id="link-youtube"
-              placeholder="https://www.youtube/user/"
+              placeholder="https://www.youtube.com/user/"
               value={socialMedia.youtube}
               onChange={(e) =>
                 setSocialMedia({ ...socialMedia, youtube: e.target.value })

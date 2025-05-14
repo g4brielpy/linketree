@@ -4,6 +4,7 @@ import {
   addDoc,
   getDoc,
   getDocs,
+  updateDoc,
   deleteDoc,
   collection,
   DocumentData,
@@ -60,6 +61,22 @@ export async function getLinks(): Promise<linkProps[]> {
   }
 }
 
+export async function deleteLink(id: string): Promise<boolean> {
+  const docRef = doc(db, path, id);
+  try {
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      throw new Error("Link não encontrado. Verifique o ID.");
+    }
+
+    await deleteDoc(docRef);
+    return true;
+  } catch (e) {
+    console.log(`Erro ao deletar link: ${e}`);
+    throw new Error("Erro ao deletar link! Tente novamente.");
+  }
+}
+
 export async function getLinksSociais(): Promise<linkSocialProps> {
   try {
     const docRef = doc(db, pathSocial, path);
@@ -74,18 +91,23 @@ export async function getLinksSociais(): Promise<linkSocialProps> {
   }
 }
 
-export async function deleteLink(id: string) {
-  const docRef = doc(db, path, id);
+export async function setLinkSocial(rede: string, url: string) {
+  const docRef = doc(db, pathSocial, path);
+  const data = {
+    [rede]: url,
+  };
+
   try {
     const docSnap = await getDoc(docRef);
+    console.log(docSnap.exists(), docSnap.data());
+
     if (!docSnap.exists()) {
-      throw new Error("Link não encontrado. Verifique o ID.");
+      throw new Error("Link não encontrado");
     }
 
-    await deleteDoc(docRef);
-    return true;
+    await updateDoc(docRef, data);
   } catch (e) {
-    console.log(`Erro ao deletar link: ${e}`);
-    throw new Error("Erro ao deletar link! Tente novamente.");
+    console.log(`Erro ao buscar links: ${e}`);
+    throw new Error("Erro ao buscar links! Tente novamente.");
   }
 }
