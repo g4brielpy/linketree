@@ -99,7 +99,6 @@ export async function setLinkSocial(rede: string, url: string) {
 
   try {
     const docSnap = await getDoc(docRef);
-    console.log(docSnap.exists(), docSnap.data());
 
     if (!docSnap.exists()) {
       throw new Error("Link não encontrado");
