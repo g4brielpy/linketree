@@ -11,7 +11,6 @@ export function CustomButton({
   ...rest
 }: CustomButtonProps) {
   return (
-    // Terminar de estilizar - Deixar fonte responsiva
     <button
       {...rest}
       className={`
