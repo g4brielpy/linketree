@@ -7,6 +7,8 @@ import { CustomButton } from "../../components/CustomButton";
 import { CustomInput } from "../../components/CustomInput";
 import { Title1 } from "../../components/Title1";
 
+import { toast } from "react-hot-toast";
+
 export function Networks() {
   const linksResult: linkSocialProps = useFetchSocial();
   const [socialMedia, setSocialMedia] = useState<linkSocialProps>({
@@ -24,6 +26,8 @@ export function Networks() {
         setLinkSocial(key, url);
       }
     });
+
+    toast.success("Links atualizados com sucesso!");
   };
 
   useEffect(() => {
